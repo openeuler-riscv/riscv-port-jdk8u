@@ -252,6 +252,12 @@ ifeq ($(HS_ARCH),ppc)
   else
 	@$(ECHO) "No ($(VM_TARGET)) for ppc ARCH_DATA_MODEL=$(ARCH_DATA_MODEL)"
   endif
+else ifeq ($(HS_ARCH),riscv)
+	@echo "HS_ARCH:" $(HS_ARCH)
+	$(MKDIR) -p $(OUTPUTDIR)
+	$(CD) $(OUTPUTDIR); \
+		$(MAKE) -f $(ABS_OS_MAKEFILE) \
+			$(MAKE_ARGS) $(VM_TARGET)
 else
 	@$(ECHO) "No ($(VM_TARGET)) for $(HS_ARCH)"
 endif
