@@ -102,6 +102,12 @@ AC_DEFUN([PLATFORM_EXTRACT_VARS_FROM_CPU],
       VAR_CPU_BITS=64
       VAR_CPU_ENDIAN=little
       ;;
+    riscv64)
+      VAR_CPU=riscv64
+      VAR_CPU_ARCH=riscv
+      VAR_CPU_BITS=64
+      VAR_CPU_ENDIAN=little
+      ;;
     *)
       AC_MSG_ERROR([unsupported cpu $1])
       ;;
@@ -387,6 +393,7 @@ AC_DEFUN([PLATFORM_SETUP_LEGACY_VARS],
     sparc*)  ZERO_ARCHDEF=SPARC ;;
     x86_64*) ZERO_ARCHDEF=AMD64 ;;
     x86)     ZERO_ARCHDEF=IA32  ;;
+    riscv*)  ZERO_ARCHDEF=RISCV ;;
     *)      ZERO_ARCHDEF=$(echo "${OPENJDK_TARGET_CPU_LEGACY_LIB}" | tr a-z A-Z)
   esac
   AC_SUBST(ZERO_ARCHDEF)
