@@ -64,6 +64,9 @@ all:
 	if [ -d $(AGENT_DIR) -a "$(SRCARCH)" != "ia64" \
              -a "$(SRCARCH)" != "zero" ] ; then \
 	   $(MAKE) -f sa.make $(GENERATED)/sa-jdi.jar; \
+	   mkdir -p $(TOPDIR)/../../../jdk/lib; \
+	   cp $(GENERATED)/sa-jdi.jar $(TOPDIR)/../../../jdk/lib/sa-jdi.jar; \
+	   echo "Copy success."; \
 	fi
 
 $(GENERATED)/sa-jdi.jar:: $(AGENT_FILES)
@@ -109,6 +112,7 @@ $(GENERATED)/sa-jdi.jar:: $(AGENT_FILES)
 	$(QUIETLY) $(REMOTE) $(RUN.JAVAH) -classpath $(SA_CLASSDIR) -d $(GENERATED) -jni sun.jvm.hotspot.debugger.x86.X86ThreadContext
 	$(QUIETLY) $(REMOTE) $(RUN.JAVAH) -classpath $(SA_CLASSDIR) -d $(GENERATED) -jni sun.jvm.hotspot.debugger.amd64.AMD64ThreadContext
 	$(QUIETLY) $(REMOTE) $(RUN.JAVAH) -classpath $(SA_CLASSDIR) -d $(GENERATED) -jni sun.jvm.hotspot.debugger.aarch64.AARCH64ThreadContext
+	$(QUIETLY) $(REMOTE) $(RUN.JAVAH) -classpath $(SA_CLASSDIR) -d $(GENERATED) -jni sun.jvm.hotspot.debugger.riscv64.RISCV64ThreadContext
 	$(QUIETLY) $(REMOTE) $(RUN.JAVAH) -classpath $(SA_CLASSDIR) -d $(GENERATED) -jni sun.jvm.hotspot.debugger.sparc.SPARCThreadContext
 	$(QUIETLY) $(REMOTE) $(RUN.JAVAH) -classpath $(SA_CLASSDIR) -d $(GENERATED) -jni sun.jvm.hotspot.asm.Disassembler
 

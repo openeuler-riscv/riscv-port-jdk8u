@@ -216,7 +216,7 @@ ifeq ($(OSNAME),windows)
 	@$(ECHO) "No compiler1 ($(VM_TARGET)) for ARCH_DATA_MODEL=$(ARCH_DATA_MODEL)"
   endif
 else
-  ifeq ($(ARCH_DATA_MODEL), 32)
+  ifeq ($(ARCH_DATA_MODEL), 64)
 	$(CD) $(OUTPUTDIR); \
 	    $(MAKE) -f $(ABS_OS_MAKEFILE) \
 		      $(MAKE_ARGS) $(VM_TARGET)
@@ -252,8 +252,13 @@ ifeq ($(HS_ARCH),ppc)
   else
 	@$(ECHO) "No ($(VM_TARGET)) for ppc ARCH_DATA_MODEL=$(ARCH_DATA_MODEL)"
   endif
+else ifeq ($(HS_ARCH),riscv64)
+		$(MKDIR) -p $(OUTPUTDIR)
+		$(CD) $(OUTPUTDIR); \
+			$(MAKE) -f $(ABS_OS_MAKEFILE) \
+				$(MAKE_ARGS) $(VM_TARGET)
 else
-	@$(ECHO) "No ($(VM_TARGET)) for $(HS_ARCH)"
+	@$(ECHO) "No ($(VM_TARGET)) for riscv64 ARCH_DATA_MODEL=$(ARCH_DATA_MODEL)"
 endif
 
 generic_buildzero: $(HOTSPOT_SCRIPT)
